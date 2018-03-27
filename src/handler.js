@@ -28,10 +28,12 @@ const staticHandler = (response, filepath) => {
 	});
 };
 
-const searchHandler = (response, url) => {
-	//	let result = logic.searchQuery(url);
-	response.writeHead(200, { 'content-type': 'application/json' });
-	response.end(JSON.stringify(result));
+const searchHandler = url => {
+	request(url, (error, response, body) => {
+		console.log('error:', error); // Print the error if one occurred
+		console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+		console.log('body:', body); // Print the body
+	});
 };
 
 module.exports = {
