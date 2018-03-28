@@ -3,8 +3,6 @@
   const newsTitle = document.querySelector('#js-newsTitle');
   const newsList = document.querySelector('#js-newsList');
   const countriesContainer = document.getElementById('countries-button');
-
-
   const testAnalysis = document.querySelector('#test');
 
   // Variables here:
@@ -48,20 +46,42 @@
   
 
   function displayHeadlines(newsObject) {
-    // console.log(newsObject);
-    var keys =['source.name', 'title', 'url', 'publishedAt'];
-    newsObject.articles.forEach(function(item) {
-      var article = {
-        source: item.source.name,
-        title: item.title,
-        url: item.url,
-        date: (item.publishedAt).slice(0, 10),
-        time: (item.publishedAt).slice(11, 19)
-      };
-      console.log(article);
-    });
-    
-  }
+		// Debatable which vertion is faster
+		newsObject.articles.forEach(function(item) {
+			let article = `<article class="news__article">
+			 <h2 class="article__headline">${item.title}</h2>
+			 <p class="article__meta"> <span class="article__source">${
+					item.source.name
+				}</span><time class="article__datetime" datetime="${
+				item.publishedAt
+			}">${item.publishedAt.slice(0, 10)} ${item.publishedAt.slice(
+				11,
+				19
+			)}</time></p>
+			 </article>`;
+			newsList.insertAdjacentHTML('afterbegin', article);
+
+			// let article = document.createElement('article');
+			// let headline = document.createElement('h2');
+			// headline.textContent = item.title;
+			// let paragraph = document.createElement('p');
+			// let source = document.createElement('span');
+			// source.textContent = item.source.name;
+			// let time = document.createElement('time');
+			// time.setAttribute('datetime', item.publishedAt);
+			// time.textContent = `${item.publishedAt.slice(
+			// 	0,
+			// 	10
+			// )} ${item.publishedAt.slice(11, 19)}`;
+
+			// paragraph.appendChild(source);
+			// paragraph.appendChild(time);
+			// article.appendChild(headline);
+			// article.appendChild(paragraph);
+
+			// newsList.appendChild(article);
+		});
+	}
 
   function displayAnalysis(imageObject) {
     console.log('DOM console logging image: ', imageObject);
