@@ -29,7 +29,7 @@
         time: (item.publishedAt).slice(11, 19)
       };
       console.log(article);
-    })
+    });
     
   }
 
