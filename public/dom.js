@@ -3,10 +3,25 @@
   const newsTitle = document.querySelector('#js-newsTitle');
   const newsList = document.querySelector('#js-newsList');
 
+  const testAnalysis = document.querySelector('#test');
+
   // Variables here:
 
 
   // On-Load listeners:
+
+  fetch('GET', 'search?category=general', displayHeadlines);
+
+
+  // User event listeners:
+
+  testAnalysis.addEventListener('click', function() {
+    fetch('GET', 'analyze?url=https://s.abcnews.com/images/Politics/donald-trump-justice-stevens-gty-jpo-180328_hpMain_16x9_992.jpg', displayAnalysis)
+  })
+
+  // function analyze() {
+  //   fetch('GET', 'analyze?url=https://s.abcnews.com/images/Politics/donald-trump-justice-stevens-gty-jpo-180328_hpMain_16x9_992.jpg', displayAnalysis)
+  // }
   fetch('GET', 'countrylist', populateList)
   fetch('GET', 'search?category=general', displayHeadlines)
 
@@ -35,6 +50,10 @@
       // console.log(article);
     });
     
+  }
+
+  function displayAnalysis(imageObject) {
+    console.log('DOM console logging image: ', imageObject);
   }
 
 
