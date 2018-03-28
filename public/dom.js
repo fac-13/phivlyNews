@@ -2,7 +2,7 @@
   // Document Selectors here:
   const newsTitle = document.querySelector('#js-newsTitle');
   const newsList = document.querySelector('#js-newsList');
-  const countriesContainer = document.querySelector('.countries__container');
+  const countriesContainer = document.getElementById('countries-button');
 
 
   const testAnalysis = document.querySelector('#test');
@@ -31,10 +31,12 @@
   // DOM manipulation on response:
 
   function populateList(countryObject){
+    var myFlags = flags();
     var countryList = Object.keys(countryObject);
     countryList.forEach(country => {
       let button = document.createElement("button");
       button.textContent = country;
+      button.textContent += myFlags[countryObject[country]];
       button.value = countryObject[country];
       countriesContainer.appendChild(button);
     });
