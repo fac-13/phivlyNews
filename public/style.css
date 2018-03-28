@@ -126,6 +126,7 @@ body {
 }
 
 .article__source {
+	color: var(--accent-color);
 }
 
 .article__datetime {
