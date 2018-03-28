@@ -1,3 +1,4 @@
+/* eslint-disable */
 (function () {
   // Document Selectors here:
   const newsTitle = document.querySelector('#js-newsTitle');
@@ -25,8 +26,6 @@
   // })
 
 
-  
-
 
   // DOM manipulation on response:
 
@@ -43,45 +42,36 @@
     });
   }
 
-  
+
 
   function displayHeadlines(newsObject) {
-		// Debatable which vertion is faster
+    while(newsList.firstChild){
+      newsList.removeChild(newsList.firstChild)
+    }
+
 		newsObject.articles.forEach(function(item) {
-			let article = `<article class="news__article">
-			 <h2 class="article__headline">${item.title}</h2>
-			 <p class="article__meta"> <span class="article__source">${
-					item.source.name
-				}</span><time class="article__datetime" datetime="${
-				item.publishedAt
-			}">${item.publishedAt.slice(0, 10)} ${item.publishedAt.slice(
-				11,
-				19
-			)}</time></p>
-			 </article>`;
-			newsList.insertAdjacentHTML('afterbegin', article);
+      let article = document.createElement('article');
+        article.classList.add('news__article')
+  			let headline = document.createElement('h2');
+        headline.classList.add('article__headline')
+  			headline.textContent = item.title;
+  			let paragraph = document.createElement('p');
+        paragraph.classList.add('article_meta')
+  			let source = document.createElement('span');
+        source.classList.add('article__source')
+  			source.textContent = item.source.name;
+  			let time = document.createElement('time');
+        time.classList.add('article__datetime')
+  			time.setAttribute('datetime', item.publishedAt)
 
-			// let article = document.createElement('article');
-			// let headline = document.createElement('h2');
-			// headline.textContent = item.title;
-			// let paragraph = document.createElement('p');
-			// let source = document.createElement('span');
-			// source.textContent = item.source.name;
-			// let time = document.createElement('time');
-			// time.setAttribute('datetime', item.publishedAt);
-			// time.textContent = `${item.publishedAt.slice(
-			// 	0,
-			// 	10
-			// )} ${item.publishedAt.slice(11, 19)}`;
+  			paragraph.appendChild(source);
+  			paragraph.appendChild(time);
+  			article.appendChild(headline);
+  			article.appendChild(paragraph);
 
-			// paragraph.appendChild(source);
-			// paragraph.appendChild(time);
-			// article.appendChild(headline);
-			// article.appendChild(paragraph);
-
-			// newsList.appendChild(article);
-		});
-	}
+  			newsList.appendChild(article);
+  		});
+  	}
 
   function displayAnalysis(imageObject) {
     console.log('DOM console logging image: ', imageObject);
@@ -89,7 +79,7 @@
 
 
   // Function Declaration:
- 
+
   // Fetch request
   function fetch(method, url, callback) {
     var xhr = new XMLHttpRequest();
