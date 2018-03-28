@@ -4,6 +4,7 @@ const qs = require("querystring");
 const fs = require("fs");
 const path = require("path");
 const { URL } = require("url");
+const countries = require("./countries.json")
 
 // const countries = require('./countries.json');
 // const logic = require('./logic');
@@ -29,16 +30,31 @@ const staticHandler = (res, filepath) => {
   });
 };
 
+const countryListHandler = (res, filepath) => {
+  console.log('CountryListHandler reached')
+  fs.readFile(path.join(__dirname, filepath), "utf8", (error, file) => {
+    if (error) {
+      res.writeHead(500, { "content-type": "text/plain" });
+      res.end("server error");
+    } else {
+      res.writeHead(200, { "content-type": 'application/json' });
+      console.log(file);
+      res.end(file);
+    }
+  });
+}
+
+
 const searchHandler = (res, url) => {
   try {
     const myURL = new URL("https://newsapi.org/v2/top-headlines");
 
-    console.log(myURL);
-    console.log(url);
+    // console.log(myURL);
+    // console.log(url);
 
     const query = qs.parse(url.split("?")[1]);
 
-    console.log(query);
+    // console.log(query);
 
     const options = {
       uri: myURL.href,
@@ -49,12 +65,12 @@ const searchHandler = (res, url) => {
       }
     };
 
-    console.log(options);
+    // console.log(options);
 
     request(options, (apiError, apiResponse, apiBody) => {
-      console.log("apiError:", apiError);
-      console.log("apiRes statusCode:", apiResponse && apiResponse.statusCode);
-      console.log("apiRes body:", apiBody);
+      // console.log("apiError:", apiError);
+      // console.log("apiRes statusCode:", apiResponse && apiResponse.statusCode);
+      // console.log("apiRes body:", apiBody);
 
       if (apiError) {
         res.writeHead(apiResponse.statusCode, { "content-type": "text/plain" });
@@ -67,7 +83,7 @@ const searchHandler = (res, url) => {
     });
   } catch (error){
     console.log('Error, could not initiate API request');
-    console.log(error.message);
+    return error.message;
   }
     
    
@@ -75,5 +91,6 @@ const searchHandler = (res, url) => {
 
 module.exports = {
   staticHandler,
-  searchHandler
+  searchHandler,
+  countryListHandler
 };

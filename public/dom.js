@@ -7,7 +7,7 @@
 
 
   // On-Load listeners:
-
+  fetch('GET', 'countrylist', populateList)
   fetch('GET', 'search?category=general', displayHeadlines)
 
   // Country Search Listener:
@@ -17,8 +17,12 @@
 
   // DOM manipulation on response:
 
+  function populateList(countryObject){
+    console.log(countryObject);
+  }
+
   function displayHeadlines(newsObject) {
-    console.log(newsObject);
+    // console.log(newsObject);
     var keys =['source.name', 'title', 'url', 'publishedAt'];
     newsObject.articles.forEach(function(item) {
       var article = {
@@ -28,7 +32,7 @@
         date: (item.publishedAt).slice(0, 10),
         time: (item.publishedAt).slice(11, 19)
       };
-      console.log(article);
+      // console.log(article);
     });
     
   }
