@@ -32,3 +32,14 @@ test('Public route returns a status code of 200', (t) => {
      t.end()
    })
 })
+
+test('Search route returns a status code of 200', (t) => {
+  supertest(router)
+   .get('/search') //potentially add /search/*
+   .expect(200)
+   .end((err, res) => {
+     t.error(err)
+     t.equal(res.statusCode, 200, 'Should return 200')
+     t.end()
+   })
+})
