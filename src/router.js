@@ -1,4 +1,4 @@
-const handler = require('./hander');
+const { staticHandler, searchHandler } = require('./handler');
 
 const router = (req, res) => {
 	const url = req.url;
@@ -10,8 +10,8 @@ const router = (req, res) => {
 	} else if (url.indexOf('search') !== -1) {
 		searchHandler(res, url);
 	} else {
-		response.writeHead(404, { 'content-type': 'text/plain' });
-		response.end('404 error');
+		res.writeHead(404, { 'content-type': 'text/plain' });
+		res.end('404 error');
 	}
 };
 
