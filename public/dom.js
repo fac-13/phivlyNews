@@ -1,34 +1,51 @@
-(function() {
-	// Document Selectors here:
-	const newsTitle = document.querySelector('#js-newsTitle');
-	const newsList = document.querySelector('#js-newsList');
-	const testAnalysis = document.querySelector('#test');
+(function () {
+  // Document Selectors here:
+  const newsTitle = document.querySelector('#js-newsTitle');
+  const newsList = document.querySelector('#js-newsList');
+  const countriesContainer = document.getElementById('countries-button');
+  const testAnalysis = document.querySelector('#test');
 
-	// Variables here:
+  // Variables here:
 
-	// On-Load listeners:
-	fetch('GET', 'search?category=general', displayHeadlines);
-	fetch('GET', 'countrylist', populateList);
 
-	// User event listeners:
-	testAnalysis.addEventListener('click', function() {
-		fetch(
-			'GET',
-			'analyze?url=https://s.abcnews.com/images/Politics/donald-trump-justice-stevens-gty-jpo-180328_hpMain_16x9_992.jpg',
-			displayAnalysis
-		);
-	});
+  // On-Load listeners:
 
-	// Country Search Listener:
-	var countryCode = 'cn';
-	// fetch('GET', `search?country=${countryCode}`, displayHeadlines);
+  fetch('GET', 'search?category=general', displayHeadlines);
+  fetch('GET', 'countrylist', populateList);
 
-	// DOM manipulation on response:
-	function populateList(countryObject) {
-		console.log(countryObject);
-	}
+  // User event listeners:
 
-	function displayHeadlines(newsObject) {
+  countriesContainer.addEventListener('click', function(e) {
+    var countryCode = e.target.value;
+    fetch('GET', 'search?country=' + countryCode, displayHeadlines);
+  })
+
+  // testAnalysis.addEventListener('click', function() {
+  //   fetch('GET', 'analyze?url=https://s.abcnews.com/images/Politics/donald-trump-justice-stevens-gty-jpo-180328_hpMain_16x9_992.jpg', displayAnalysis)
+  // })
+
+
+  
+
+
+  // DOM manipulation on response:
+
+  function populateList(countryObject){
+    var myFlags = flags();
+    var countryList = Object.keys(countryObject);
+    countryList.forEach(country => {
+      let button = document.createElement("button");
+      button.classList.add("country__button")
+      button.textContent = country + ' ';
+      button.textContent += myFlags[countryObject[country]];
+      button.value = countryObject[country];
+      countriesContainer.appendChild(button);
+    });
+  }
+
+  
+
+  function displayHeadlines(newsObject) {
 		// Debatable which vertion is faster
 		newsObject.articles.forEach(function(item) {
 			let article = `<article class="news__article">
@@ -66,26 +83,28 @@
 		});
 	}
 
-	function displayAnalysis(imageObject) {
-		//console.log('DOM console logging image: ', imageObject);
-	}
+  function displayAnalysis(imageObject) {
+    console.log('DOM console logging image: ', imageObject);
+  }
 
-	// Function Declaration:
 
-	// Fetch request
-	function fetch(method, url, callback) {
-		var xhr = new XMLHttpRequest();
+  // Function Declaration:
+ 
+  // Fetch request
+  function fetch(method, url, callback) {
+    var xhr = new XMLHttpRequest();
 
-		xhr.addEventListener('load', function() {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				console.log('fetch is working', url);
-				var response = JSON.parse(xhr.responseText);
-				callback(response);
-			} else {
-				console.log('XHR error', xhr.readyState);
-			}
-		});
-		xhr.open(method, url, true);
-		xhr.send();
-	}
-})();
+    xhr.addEventListener("load", function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        console.log("fetch is working", url);
+        var response = JSON.parse(xhr.responseText);
+        callback(response);
+      } else {
+        console.log("XHR error", xhr.readyState);
+      }
+    });
+    xhr.open(method, url, true);
+    xhr.send();
+  }
+
+}());
