@@ -54,3 +54,14 @@ test('no existing route returns 404', (t) =>{
     t.end()
   })
 })
+
+// test('Search handler throws error if API request can\'t be initiated', (t) =>{
+//   supertest(router)
+//   .get('/search\\\gttyhh')
+//   .expect(200)
+//   .end((err, res) => {
+//     t.error(err)
+//     t.equal(res.statusCode, 404, 'Should return 404')
+//     t.end()
+//   })
+// })

@@ -7,11 +7,19 @@
 
 
   // On-Load listeners:
-
+  fetch('GET', 'countrylist', populateList)
   fetch('GET', 'search?category=general', displayHeadlines)
+
+  // Country Search Listener:
+  var countryCode = 'cn';
+  fetch('GET', `search?country=${countryCode}`, displayHeadlines)
 
 
   // DOM manipulation on response:
+
+  function populateList(countryObject){
+    console.log(countryObject);
+  }
 
   function displayHeadlines(newsObject) {
     // console.log(newsObject);
@@ -24,7 +32,7 @@
         date: (item.publishedAt).slice(0, 10),
         time: (item.publishedAt).slice(11, 19)
       };
-      console.log(article);
+      // console.log(article);
     });
     
   }

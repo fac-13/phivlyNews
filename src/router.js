@@ -1,12 +1,14 @@
-const { staticHandler, searchHandler } = require('./handler');
+const { staticHandler, searchHandler, countryListHandler } = require('./handler');
 
 const router = (req, res) => {
   const url = req.url;
-
+  console.log(url);
   if (url === '/') {
     staticHandler(res, 'public/index.html');
   } else if (url.indexOf('public') !== -1) {
     staticHandler(res, url);
+  } else if (url === '/countrylist'){
+    countryListHandler(res, '/countries.json');
   } else if (url.indexOf('search') !== -1) {
     searchHandler(res, url);
   } else {
