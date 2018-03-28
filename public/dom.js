@@ -10,11 +10,15 @@
 
   fetch('GET', 'search?category=general', displayHeadlines)
 
+  // Country Search Listener:
+  var countryCode = 'cn';
+  fetch('GET', `search?country=${countryCode}`, displayHeadlines)
+
 
   // DOM manipulation on response:
 
   function displayHeadlines(newsObject) {
-    // console.log(newsObject);
+    console.log(newsObject);
     var keys =['source.name', 'title', 'url', 'publishedAt'];
     newsObject.articles.forEach(function(item) {
       var article = {
