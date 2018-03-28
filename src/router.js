@@ -1,7 +1,7 @@
 const { staticHandler, searchHandler } = require('./handler');
 
 const router = (req, res) => {
-  const { url } = req;
+  const url = req.url;
 
   if (url === '/') {
     staticHandler(res, 'public/index.html');
