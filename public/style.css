@@ -2,17 +2,126 @@
 *,
 *:before,
 *:after {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .clearfix:after {
-  content: "";
-  display: table;
-  clear: both;
+	content: '';
+	display: table;
+	clear: both;
 }
 
+/****COLORS******/
+:root {
+	--bg-color-main: #ced0ce;
+	--bg-color-light: #e6e8e6;
+	--bg-color-lighter: #ffffff;
+	--text-color: #191919;
+	--accent-color: #f15025;
+}
 
-
+/****MODIFIER STYLES******/
 .is--hidden {
-  display: none;
+	display: none;
+}
+
+/****LAYOUT******/
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, “Roboto”, “Oxygen”,
+		“Ubuntu”, “Cantarell”, “Fira Sans”, “Droid Sans”, “Helvetica Neue”,
+		sans-serif;
+	background-color: var(--bg-color-main);
+	color: var(--text-color);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: stretch;
+}
+
+/* tablet-portrait-up */
+@media (min-width: 900px) {
+	body {
+		max-width: 768px;
+		align-items: center;
+		margin: 1rem auto 1rem auto;
+	}
+}
+
+/****HEADER******/
+
+.header {
+	/* border: solid 3px tomato; */
+	background-color: var(--bg-color-lighter);
+	color: var(--text-color);
+	text-align: center;
+	font-family: 'Rozha One', serif;
+	padding: 1rem 0.5rem 1rem 0.5rem;
+}
+
+.header__title {
+	font-size: 2rem;
+	margin: 0 auto;
+}
+
+.header__subtitle {
+	font-size: 1.2rem;
+	color: var(--text-color);
+	line-height: 1rem;
+}
+
+/* tablet-portrait-down  */
+@media (max-width: 600px) and (min-width: 350px) {
+	.header__subtitle {
+		padding: 0 40px 0 40px;
+	}
+}
+.countries__container {
+	padding: 0 0.5rem 0 0.5rem;
+}
+
+.country__button {
+	text-decoration: none;
+	border: solid 1px tomato;
+}
+
+/****NEWS******/
+
+.news {
+	/* justify-content: space-between; */
+}
+
+.news__title {
+}
+
+.news__list {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	padding-top: 0.5rem;
+}
+
+.news__article {
+	background-color: var(--bg-color-lighter);
+	color: var(--text-color);
+	margin: 0.5rem 0;
+	padding: 0 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.article__headline {
+	font-size: 1.2rem;
+	margin-bottom: 0.2rem;
+}
+
+.article__meta {
+	font-size: 1rem;
+}
+
+.article__source {
+}
+
+.article__datetime {
 }
