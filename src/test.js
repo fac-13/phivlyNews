@@ -24,7 +24,7 @@ test('Home route returns a status code of 200', (t) => {
 
 test('Public route returns a status code of 200', (t) => {
   supertest(router)
-   .get('/public') //potentially add /public/*
+   .get('/public/style.css')
    .expect(200)
    .end((err, res) => {
      t.error(err)
@@ -42,4 +42,15 @@ test('Search route returns a status code of 200', (t) => {
      t.equal(res.statusCode, 200, 'Should return 200')
      t.end()
    })
+})
+
+test('no existing route returns 404', (t) =>{
+  supertest(router)
+  .get('/elephant')
+  .expect(404)
+  .end((err, res) => {
+    t.error(err)
+    t.equal(res.statusCode, 404, 'Should return 404')
+    t.end()
+  })
 })
