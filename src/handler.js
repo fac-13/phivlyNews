@@ -57,12 +57,11 @@ const searchHandler = (res, url) => {
     console.log('apiRes body:', apiBody);
 
     if (apiError) {
-      // Sort this out!!
-      // res.writeHead(apiResponse.statusCode, { 'content-type': 'text/plain' });
-      // res.end(`api request error: ${apiResponse.statusCode}`);
+      res.writeHead(apiResponse.statusCode, { 'content-type': 'text/plain' });
+      res.end(`api request error: ${apiResponse.statusCode}`);
     } else {
       // Pure function logic goes here if needed
-      // res.writeHead(200, { 'content-type': extensionType[extension] });
+      res.writeHead(200, { 'content-type': 'application/json' });
       res.end(apiBody);
     }
   });
