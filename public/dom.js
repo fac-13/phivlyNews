@@ -35,7 +35,8 @@
     var countryList = Object.keys(countryObject);
     countryList.forEach(country => {
       let button = document.createElement("button");
-      button.textContent = country;
+      button.classList.add("country__button")
+      button.textContent = country + ' ';
       button.textContent += myFlags[countryObject[country]];
       button.value = countryObject[country];
       countriesContainer.appendChild(button);
