@@ -89,8 +89,50 @@ const searchHandler = (res, url) => {
    
 };
 
+const analyzeHandler = (res, url) => {
+
+  const query = qs.parse(url.split('?')[1])
+
+  console.log(query);
+
+  const Clarifai = require('clarifai');
+
+  const app = new Clarifai.App({
+    apiKey: 'e908e313cc9144079962ffe1c86be214'
+  });
+
+  app.models.predict(Clarifai.COLOR_MODEL, query.url).then(
+    function(result) {
+      // do something with response
+      // console.log(JSON.stringify(response, null, 2));
+
+      res.end(JSON.stringify(result.outputs[0].data.colors, null, 2));
+    },
+    function(err) {
+      // there was an error
+      console.log(err);
+    }
+  );
+
+  // request(options, (apiError, apiResponse, apiBody) => {
+  //   console.log('apiError:', apiError);
+  //   console.log('apiRes statusCode:', apiResponse && apiResponse.statusCode);
+  //   console.log('apiRes body:', apiBody);
+
+  //   if (apiError) {
+  //     res.writeHead(apiResponse.statusCode, { 'content-type': 'text/plain' });
+  //     res.end(`api request error: ${apiResponse.statusCode}`);
+  //   } else {
+  //     // Pure function logic goes here if needed
+  //     res.writeHead(200, { 'content-type': 'application/json' });
+  //     res.end(apiBody);
+  //   }
+  // });
+};
+
 module.exports = {
   staticHandler,
   searchHandler,
+  analyzeHandler,
   countryListHandler
 };
