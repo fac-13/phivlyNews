@@ -101,7 +101,7 @@ const analyzeHandler = (res, url) => {
     apiKey: 'e908e313cc9144079962ffe1c86be214'
   });
 
-  app.models.predict(Clarifai.COLOR_MODEL, query.url).then(
+  app.models.predict(Clarifai.GENERAL_MODEL, query.url).then(
     function(result) {
       // do something with response
       // console.log(JSON.stringify(response, null, 2));
