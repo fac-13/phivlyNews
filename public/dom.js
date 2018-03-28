@@ -29,27 +29,40 @@
 	}
 
 	function displayHeadlines(newsObject) {
-		// Takes nearly 400ms - refactor for speed!!!
+		// Debatable which vertion is faster
 		newsObject.articles.forEach(function(item) {
-			let article = document.createElement('article');
-			let headline = document.createElement('h2');
-			headline.textContent = item.title;
-			let paragraph = document.createElement('p');
-			let source = document.createElement('span');
-			source.textContent = item.source.name;
-			let time = document.createElement('time');
-			time.setAttribute('datetime', item.publishedAt);
-			time.textContent = `${item.publishedAt.slice(
-				0,
-				10
-			)} ${item.publishedAt.slice(11, 19)}`;
+			let article = `<article class="news__article">
+			 <h2 class="article__headline">${item.title}</h2>
+			 <p class="article__meta"> <span class="article__source">${
+					item.source.name
+				}</span><time class="article__datetime" datetime="${
+				item.publishedAt
+			}">${item.publishedAt.slice(0, 10)} ${item.publishedAt.slice(
+				11,
+				19
+			)}</time></p>
+			 </article>`;
+			newsList.insertAdjacentHTML('afterbegin', article);
 
-			paragraph.appendChild(source);
-			paragraph.appendChild(time);
-			article.appendChild(headline);
-			article.appendChild(paragraph);
+			// let article = document.createElement('article');
+			// let headline = document.createElement('h2');
+			// headline.textContent = item.title;
+			// let paragraph = document.createElement('p');
+			// let source = document.createElement('span');
+			// source.textContent = item.source.name;
+			// let time = document.createElement('time');
+			// time.setAttribute('datetime', item.publishedAt);
+			// time.textContent = `${item.publishedAt.slice(
+			// 	0,
+			// 	10
+			// )} ${item.publishedAt.slice(11, 19)}`;
 
-			newsList.appendChild(article);
+			// paragraph.appendChild(source);
+			// paragraph.appendChild(time);
+			// article.appendChild(headline);
+			// article.appendChild(paragraph);
+
+			// newsList.appendChild(article);
 		});
 	}
 
