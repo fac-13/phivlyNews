@@ -45,7 +45,10 @@
 
 
   function displayHeadlines(newsObject) {
-		// Debatable which vertion is faster
+    while(newsList.firstChild){
+      newsList.removeChild(newsList.firstChild)
+    }
+
 		newsObject.articles.forEach(function(item) {
       let article = document.createElement('article');
         article.classList.add('news__article')
