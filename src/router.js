@@ -1,4 +1,4 @@
-const { staticHandler, searchHandler } = require('./handler');
+const { staticHandler, searchHandler, analyzeHandler } = require('./handler');
 
 const router = (req, res) => {
   const url = req.url;
@@ -9,7 +9,9 @@ const router = (req, res) => {
     staticHandler(res, url);
   } else if (url.indexOf('search') !== -1) {
     searchHandler(res, url);
-  } else {
+  } else if (url.indexOf('analyze') !== -1) {
+    analyzeHandler(res, url);
+  }else {
     res.writeHead(404, { 'content-type': 'text/plain' });
     res.end('404 error');
   }
