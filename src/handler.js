@@ -30,9 +30,7 @@ const staticHandler = (res, filepath) => {
 };
 
 const searchHandler = (res, url) => {
-  if (typeof url !== "string") {
-    throw new TypeError("Invalid url: must be a string");
-  } else {
+  try {
     const myURL = new URL("https://newsapi.org/v2/top-headlines");
 
     console.log(myURL);
@@ -67,7 +65,12 @@ const searchHandler = (res, url) => {
         res.end(apiBody);
       }
     });
+  } catch (error){
+    console.log('Error, could not initiate API request');
+    console.log(error.message);
   }
+    
+   
 };
 
 module.exports = {
