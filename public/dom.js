@@ -11,7 +11,7 @@
   // On-Load listeners:
 
   fetch('GET', 'search?category=general', displayHeadlines);
-
+  fetch('GET', 'countrylist', populateList);
 
   // User event listeners:
 
@@ -19,11 +19,7 @@
     fetch('GET', 'analyze?url=https://s.abcnews.com/images/Politics/donald-trump-justice-stevens-gty-jpo-180328_hpMain_16x9_992.jpg', displayAnalysis)
   })
 
-  // function analyze() {
-  //   fetch('GET', 'analyze?url=https://s.abcnews.com/images/Politics/donald-trump-justice-stevens-gty-jpo-180328_hpMain_16x9_992.jpg', displayAnalysis)
-  // }
-  fetch('GET', 'countrylist', populateList)
-  fetch('GET', 'search?category=general', displayHeadlines)
+
 
   // Country Search Listener:
   var countryCode = 'cn';
@@ -33,7 +29,8 @@
   // DOM manipulation on response:
 
   function populateList(countryObject){
-    console.log(countryObject);
+    var countryList = Object.keys(countryObject);
+    console.log(countryList);
   }
 
   function displayHeadlines(newsObject) {
