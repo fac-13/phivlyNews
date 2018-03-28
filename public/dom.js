@@ -2,6 +2,8 @@
   // Document Selectors here:
   const newsTitle = document.querySelector('#js-newsTitle');
   const newsList = document.querySelector('#js-newsList');
+  const countriesContainer = document.querySelector('.countries__container');
+
 
   const testAnalysis = document.querySelector('#test');
 
@@ -30,7 +32,12 @@
 
   function populateList(countryObject){
     var countryList = Object.keys(countryObject);
-    console.log(countryList);
+    countryList.forEach(country => {
+      let button = document.createElement("button");
+      button.textContent = country;
+      button.value = countryObject[country];
+      countriesContainer.appendChild(button);
+    });
   }
 
   function displayHeadlines(newsObject) {
