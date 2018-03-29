@@ -38,11 +38,11 @@ body {
 	align-items: stretch;
 }
 
-a{
-  text-decoration: none;
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #000;
+a {
+	text-decoration: none;
+	font-size: 1.3rem;
+	font-weight: bold;
+	color: #000;
 }
 
 /* tablet-portrait-up */
@@ -101,9 +101,21 @@ a{
 	border: none;
 	background-color: yellow;
 }
-.country__button:hover {
+
+button:hover,
+button:active,
+button:focus {
 	outline: none;
+	border: none;
+	/* styling for any way a link is about to be used */
+}
+.country__button:hover {
+	cursor: pointer;
 	background-color: var(--accent-color);
+}
+
+.country__button:active {
+	transform: scale(1.1, 1.1);
 }
 
 /****NEWS******/
