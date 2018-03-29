@@ -44,7 +44,6 @@ const countryListHandler = (res, filepath) => {
   });
 }
 
-
 const searchHandler = (res, url) => {
   try {
     const myURL = new URL("https://newsapi.org/v2/top-headlines");
@@ -98,10 +97,10 @@ const analyzeHandler = (res, url) => {
   const Clarifai = require('clarifai');
 
   const app = new Clarifai.App({
-    apiKey: 'e908e313cc9144079962ffe1c86be214'
+    apiKey: `${process.env.APIKEY_PHOTO}`
   });
 
-  app.models.predict(Clarifai.GENERAL_MODEL, query.url).then(
+  app.models.predict(Clarifai.COLOR_MODEL, query.url).then(
     function(result) {
       // do something with response
       // console.log(JSON.stringify(response, null, 2));
