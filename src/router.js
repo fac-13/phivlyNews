@@ -13,7 +13,7 @@ const router = (req, res) => {
     searchHandler(res, url);
   } else if (url.indexOf('analyze') !== -1) {
     analyzeHandler(res, url);
-  }else {
+  } else {
     res.writeHead(404, { 'content-type': 'text/plain' });
     res.end('404 error');
   }
