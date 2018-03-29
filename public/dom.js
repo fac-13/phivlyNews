@@ -43,7 +43,6 @@
     });
   }
 
-  
   function displayHeadlines(newsObject) {
     while(newsList.firstChild){
       newsList.removeChild(newsList.firstChild)
@@ -100,8 +99,8 @@
   //   var target = 
   // }
 
- 
-  // Fetch request:
+
+  // Fetch request
   function fetch(method, url, callback) {
     var xhr = new XMLHttpRequest();
 

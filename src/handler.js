@@ -1,13 +1,10 @@
-const request = require("request");
 const qs = require("querystring");
-// const reqpromise = require('request-promise');
 const fs = require("fs");
 const path = require("path");
 const { URL } = require("url");
-const countries = require("./countries.json")
+const request = require("request");
+const Clarifai = require("clarifai");
 
-// const countries = require('./countries.json');
-// const logic = require('./logic');
 
 const staticHandler = (res, filepath) => {
   const extension = filepath.split(".")[1]; // url or query string?
@@ -47,14 +44,7 @@ const countryListHandler = (res, filepath) => {
 const searchHandler = (res, url) => {
   try {
     const myURL = new URL("https://newsapi.org/v2/top-headlines");
-
-    // console.log(myURL);
-    // console.log(url);
-
     const query = qs.parse(url.split("?")[1]);
-
-    // console.log(query);
-
     const options = {
       uri: myURL.href,
       qs: query,
@@ -63,70 +53,39 @@ const searchHandler = (res, url) => {
         "X-Api-Key": process.env.APIKEY_NEWS
       }
     };
-
-    // console.log(options);
-
     request(options, (apiError, apiResponse, apiBody) => {
-      // console.log("apiError:", apiError);
-      // console.log("apiRes statusCode:", apiResponse && apiResponse.statusCode);
-      // console.log("apiRes body:", apiBody);
-
       if (apiError) {
         res.writeHead(apiResponse.statusCode, { "content-type": "text/plain" });
         res.end(`api request error: ${apiResponse.statusCode}`);
       } else {
-        // Pure function logic goes here if needed
         res.writeHead(200, { "content-type": "application/json" });
         res.end(apiBody);
       }
     });
-  } catch (error){
+  } catch (error) {
     console.log('Error, could not initiate API request');
     return error.message;
   }
-    
-   
 };
 
 const analyzeHandler = (res, url) => {
-
-  const query = qs.parse(url.split('?')[1])
-
-  console.log(query);
-
-  const Clarifai = require('clarifai');
-
-  const app = new Clarifai.App({
-    apiKey: `${process.env.APIKEY_PHOTO}`
-  });
-
-  app.models.predict(Clarifai.COLOR_MODEL, query.url).then(
-    function(result) {
-      // do something with response
-      // console.log(JSON.stringify(response, null, 2));
-
-      res.end(JSON.stringify(result.outputs[0].data.colors, null, 2));
-    },
-    function(err) {
-      // there was an error
-      console.log(err);
-    }
-  );
-
-  // request(options, (apiError, apiResponse, apiBody) => {
-  //   console.log('apiError:', apiError);
-  //   console.log('apiRes statusCode:', apiResponse && apiResponse.statusCode);
-  //   console.log('apiRes body:', apiBody);
-
-  //   if (apiError) {
-  //     res.writeHead(apiResponse.statusCode, { 'content-type': 'text/plain' });
-  //     res.end(`api request error: ${apiResponse.statusCode}`);
-  //   } else {
-  //     // Pure function logic goes here if needed
-  //     res.writeHead(200, { 'content-type': 'application/json' });
-  //     res.end(apiBody);
-  //   }
-  // });
+  try {
+    const query = qs.parse(url.split('?')[1])
+    const app = new Clarifai.App({
+      apiKey: `${process.env.APIKEY_PHOTO}`
+    });
+    app.models.predict(Clarifai.COLOR_MODEL, query.url).then(
+      function(result) {
+        res.end(JSON.stringify(result.outputs[0].data.colors));
+      },
+      function(err) {
+        console.log(err);
+      }
+    );
+  } catch (error) {
+    console.log('Error, could not initiate API request');
+    return error.message;
+  };
 };
 
 module.exports = {
