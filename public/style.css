@@ -111,6 +111,8 @@ time {
 	border: none;
 	border-radius: 2px;
 	background-color: var(--white);
+	height:30px;
+	width: auto;
 }
 
 button:hover,

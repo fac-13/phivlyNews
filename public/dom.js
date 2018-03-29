@@ -31,17 +31,14 @@
   // DOM manipulation on response:
 
   function populateList(countryObject) {
-    var countryList = Object.keys(countryObject).sort();
-    countryList.forEach(country => {
-      var button = document.createElement('button');
-      var span = document.createElement('span');
-      span.classList.add('flag-icon', 'flag-icon-' + countryObject[country]);
-      button.classList.add('country__button');
-      button.appendChild(span);
-      button.value = countryObject[country];
-      countriesContainer.appendChild(button);
-    });
-  }
+		var countryList = Object.keys(countryObject).sort();
+		countryList.forEach(country => {
+			let button = document.createElement('button');
+			button.classList.add('country__button','flag-icon-background', 'flag-icon-' + countryObject[country]);
+			button.value = countryObject[country];
+			countriesContainer.appendChild(button);
+		});
+	}
 
 	function displayHeadlines(newsObject) {
 		while (newsList.firstChild) {
