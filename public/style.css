@@ -45,6 +45,14 @@ a{
   color: #000;
 }
 
+p{
+	display:flex;
+	justify-content: space-between;
+}
+
+time{
+	font-size: 0.8rem;
+}
 /* tablet-portrait-up */
 @media (min-width: 900px) {
 	body {
