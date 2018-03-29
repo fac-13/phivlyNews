@@ -41,7 +41,6 @@ const countryListHandler = (res, filepath) => {
   });
 }
 
-
 const searchHandler = (res, url) => {
   try {
     const myURL = new URL("https://newsapi.org/v2/top-headlines");
