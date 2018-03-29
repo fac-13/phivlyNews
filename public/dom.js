@@ -49,7 +49,6 @@
     }
 
 		newsObject.articles.forEach(function(item) {
-      // console.log(item);
       if (item.urlToImage) {
         let article = document.createElement('article');
         article.classList.add('news__article');
@@ -63,8 +62,7 @@
             imageObject.forEach(function(colour) {
               console.log(colour);
               var wrapper = document.createElement('div');
-              wrapper.setAttribute('style', 'background-color:' + colour.raw_hex + ';height:100px;');
-              // wrapper.setAttribute('style', 'height:100px;');
+              wrapper.setAttribute('style', 'background-color:' + colour.raw_hex + ';height:100px;width:' + (colour.value * 100) + '%;display:inline-block;');
               targetElement.appendChild(wrapper);
             })
           });
@@ -82,6 +80,7 @@
         time.setAttribute('datetime', item.publishedAt);
         time.textContent = item.publishedAt;
         let colours = document.createElement('aside');
+        colours.setAttribute('style', 'margin:15px;')
   
         paragraph.appendChild(source);
         paragraph.appendChild(time);
