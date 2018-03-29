@@ -86,16 +86,24 @@ a{
 		padding: 0 40px 0 40px;
 	}
 }
+
 .countries__container {
-	/* display: grid; */
-	/* grid-template-columns: auto;
-	grid-template-rows: 1fr 1fr; */
-	padding: 0 0.5rem 0 0.5rem;
+	display: flex;
+	flex-flow: row wrap;
+	padding: 0.5rem;
 }
 
 .country__button {
+	flex: 0 0 3rem;
+	margin: 0.1rem;
+	font-size: 2rem;
 	text-decoration: none;
-	border: solid 1px tomato;
+	border: none;
+	background-color: yellow;
+}
+.country__button:hover {
+	outline: none;
+	background-color: var(--accent-color);
 }
 
 /****NEWS******/

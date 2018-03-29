@@ -1,55 +1,51 @@
 /* eslint-disable */
-(function () {
-  // Document Selectors here:
-  const newsTitle = document.querySelector('#js-newsTitle');
-  const newsList = document.querySelector('#js-newsList');
-  const countriesContainer = document.getElementById('countries-button');
-  const testAnalysis = document.querySelector('#test');
+(function() {
+	// Document Selectors here:
+	const newsTitle = document.querySelector('#js-newsTitle');
+	const newsList = document.querySelector('#js-newsList');
+	const countriesContainer = document.getElementById('countries-button');
+	const testAnalysis = document.querySelector('#test');
 
-  // Variables here:
+	// Variables here:
 
+	// On-Load listeners:
 
-  // On-Load listeners:
+	fetch('GET', 'search?category=general', displayHeadlines);
+	fetch('GET', 'countrylist', populateList);
 
-  fetch('GET', 'search?category=general', displayHeadlines);
-  fetch('GET', 'countrylist', populateList);
+	// User event listeners:
 
-  // User event listeners:
+	countriesContainer.addEventListener('click', function(e) {
+		var countryCode = e.target.value;
+		fetch('GET', 'search?country=' + countryCode, displayHeadlines);
+	});
 
-  countriesContainer.addEventListener('click', function(e) {
-    var countryCode = e.target.value;
-    fetch('GET', 'search?country=' + countryCode, displayHeadlines);
-  })
+	// testAnalysis.addEventListener('click', function() {
+	//   fetch('GET', 'analyze?url=https://s.abcnews.com/images/Politics/donald-trump-justice-stevens-gty-jpo-180328_hpMain_16x9_992.jpg', displayAnalysis)
+	// })
 
-  // testAnalysis.addEventListener('click', function() {
-  //   fetch('GET', 'analyze?url=https://s.abcnews.com/images/Politics/donald-trump-justice-stevens-gty-jpo-180328_hpMain_16x9_992.jpg', displayAnalysis)
-  // })
+	// DOM manipulation on response:
 
+	function populateList(countryObject) {
+		var myFlags = flags();
+		var countryList = Object.keys(countryObject);
+		countryList.forEach(country => {
+			let button = document.createElement('button');
+			button.classList.add('country__button');
+			// button.textContent = country + ' ';
+			button.textContent += myFlags[countryObject[country]];
+			button.value = countryObject[country];
+			countriesContainer.appendChild(button);
+		});
+	}
 
-
-  // DOM manipulation on response:
-
-  function populateList(countryObject){
-    var myFlags = flags();
-    var countryList = Object.keys(countryObject);
-    countryList.forEach(country => {
-      let button = document.createElement("button");
-      button.classList.add("country__button")
-      button.textContent = country + ' ';
-      button.textContent += myFlags[countryObject[country]];
-      button.value = countryObject[country];
-      countriesContainer.appendChild(button);
-    });
-  }
-
-
-
-  function displayHeadlines(newsObject) {
-    while(newsList.firstChild){
-      newsList.removeChild(newsList.firstChild)
-    }
+	function displayHeadlines(newsObject) {
+		while (newsList.firstChild) {
+			newsList.removeChild(newsList.firstChild);
+		}
 
 		newsObject.articles.forEach(function(item) {
+
       let article = document.createElement('article');
         article.classList.add('news__article')
   			let headline = document.createElement('a');
@@ -100,3 +96,4 @@
   }
 
 }());
+
