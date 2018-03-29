@@ -1,43 +1,47 @@
 /* eslint-disable */
-(function() {
-	// Document Selectors here:
-	const newsTitle = document.querySelector('#js-newsTitle');
-	const newsList = document.querySelector('#js-newsList');
-	const countriesContainer = document.getElementById('countries-button');
-	const testAnalysis = document.querySelector('#test');
+(function () {
+  // Document Selectors here:
+  const newsTitle = document.querySelector('#js-newsTitle');
+  const newsList = document.querySelector('#js-newsList');
+  const countriesContainer = document.getElementById('countries-button');
+  const testAnalysis = document.querySelector('#test');
 
-	// Variables here:
+  // Variables here:
 
-	// On-Load listeners:
 
-	fetch('GET', 'search?category=general', displayHeadlines);
-	fetch('GET', 'countrylist', populateList);
+  // On-Load listeners:
 
-	// User event listeners:
+  fetch('GET', 'search?category=general', displayHeadlines);
+  fetch('GET', 'countrylist', populateList);
 
-	countriesContainer.addEventListener('click', function(e) {
-		var countryCode = e.target.value;
-		fetch('GET', 'search?country=' + countryCode, displayHeadlines);
-	});
+  // User event listeners:
 
-	// testAnalysis.addEventListener('click', function() {
-	//   fetch('GET', 'analyze?url=https://s.abcnews.com/images/Politics/donald-trump-justice-stevens-gty-jpo-180328_hpMain_16x9_992.jpg', displayAnalysis)
-	// })
+  countriesContainer.addEventListener('click', function(e) {
+    var countryCode = e.target.value;
+    fetch('GET', 'search?country=' + countryCode, displayHeadlines);
+  })
 
-	// DOM manipulation on response:
+  // newsList.addEventListener('click', function(e) {
+  //   var photoLocation = e.target.value;
+  //   console.log(e.target);
+  //   fetch('GET', 'analyze?rl=' + photoLocation, displayAnalysis);
+  // })
 
-	function populateList(countryObject) {
-		var countryList = Object.keys(countryObject).sort();
-		countryList.forEach(country => {
-			let button = document.createElement('button');
-			let span = document.createElement('span');
-			span.classList.add('flag-icon', 'flag-icon-' + countryObject[country]);
-			button.classList.add('country__button');
-			button.appendChild(span);
-			button.value = countryObject[country];
-			countriesContainer.appendChild(button);
-		});
-	}
+
+  // DOM manipulation on response:
+
+  function populateList(countryObject) {
+    var countryList = Object.keys(countryObject).sort();
+    countryList.forEach(country => {
+      var button = document.createElement('button');
+      var span = document.createElement('span');
+      span.classList.add('flag-icon', 'flag-icon-' + countryObject[country]);
+      button.classList.add('country__button');
+      button.appendChild(span);
+      button.value = countryObject[country];
+      countriesContainer.appendChild(button);
+    });
+  }
 
 	function displayHeadlines(newsObject) {
 		while (newsList.firstChild) {
@@ -45,27 +49,46 @@
 		}
 
 		newsObject.articles.forEach(function(item) {
-			let article = document.createElement('article');
+			var article = document.createElement('article');
 			article.classList.add('news__article');
-			let headline = document.createElement('a');
-			headline.classList.add('article__headline');
-			headline.setAttribute('href', item.url);
-			headline.setAttribute('target', '_blank');
+      article.addEventListener('click', function(e) {
+        var photoLocation = item.urlToImage;
+        console.log(photoLocation);
+        fetch('GET', 'analyze?url=' + photoLocation, function(imageObject) {
+          console.log(e.target);
+          var targetElement = article.lastChild;
+          console.log(targetElement);
+          imageObject.forEach(function(colour) {
+            console.log(colour);
+            var wrapper = document.createElement('div');
+            wrapper.setAttribute('style', 'background-color:' + colour.raw_hex + ';height:100px;width:' + (colour.value * 100) + '%;display:inline-block;');
+            targetElement.appendChild(wrapper);
+          })
+        });
+      })
+			var headline = document.createElement('h2');
+			// headline.classList.add('article__headline');
+			// headline.setAttribute('href', item.url);
+			// headline.setAttribute('target', '_blank');
 			headline.textContent = item.title;
-			let paragraph = document.createElement('p');
+			var paragraph = document.createElement('p');
 			paragraph.classList.add('article_meta');
-			let source = document.createElement('span');
+			var source = document.createElement('span');
 			source.classList.add('article__source');
 			source.textContent = item.source.name;
-			let time = document.createElement('time');
+			var time = document.createElement('time');
 			time.classList.add('article__datetime');
 			time.setAttribute('datetime', item.publishedAt);
 			time.textContent =
 				item.publishedAt.slice(0, 10) + ' ' + item.publishedAt.slice(11, 19);
+      var colours = document.createElement('aside');
+      colours.setAttribute('style', 'margin:15px;')
+
 			paragraph.appendChild(source);
 			paragraph.appendChild(time);
 			article.appendChild(headline);
 			article.appendChild(paragraph);
+      article.appendChild(colours);
 
 			newsList.appendChild(article);
 		});
