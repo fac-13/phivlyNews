@@ -52,8 +52,10 @@
 		newsObject.articles.forEach(function(item) {
       let article = document.createElement('article');
         article.classList.add('news__article')
-  			let headline = document.createElement('h2');
+  			let headline = document.createElement('a');
         headline.classList.add('article__headline')
+        headline.setAttribute('href', item.url)
+        headline.setAttribute('target', '_blank')
   			headline.textContent = item.title;
   			let paragraph = document.createElement('p');
         paragraph.classList.add('article_meta')
