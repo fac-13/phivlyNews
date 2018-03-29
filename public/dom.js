@@ -33,7 +33,6 @@
 			let span = document.createElement('span');
 			span.classList.add('flag-icon', 'flag-icon-' + countryObject[country]);
 			button.classList.add('country__button');
-			button.textContent = country + ' ';
 			button.appendChild(span);
 			button.value = countryObject[country];
 			countriesContainer.appendChild(button);
