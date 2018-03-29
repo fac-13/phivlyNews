@@ -63,6 +63,7 @@
   			let time = document.createElement('time');
         time.classList.add('article__datetime')
   			time.setAttribute('datetime', item.publishedAt)
+        time.textContent = item.publishedAt.slice(0,10) + item.publishedAt.slice(11, 19)
 
   			paragraph.appendChild(source);
   			paragraph.appendChild(time);
