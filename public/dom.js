@@ -30,10 +30,7 @@
 		var countryList = Object.keys(countryObject).sort();
 		countryList.forEach(country => {
 			let button = document.createElement('button');
-			let span = document.createElement('span');
-			span.classList.add('flag-icon', 'flag-icon-' + countryObject[country]);
-			button.classList.add('country__button');
-			button.appendChild(span);
+			button.classList.add('country__button','flag-icon-background', 'flag-icon-' + countryObject[country]);
 			button.value = countryObject[country];
 			countriesContainer.appendChild(button);
 		});
