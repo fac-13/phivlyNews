@@ -5,8 +5,6 @@ const { URL } = require("url");
 const request = require("request");
 const Clarifai = require("clarifai");
 
-const countries = require("./countries.json")
-
 
 const staticHandler = (res, filepath) => {
   const extension = filepath.split(".")[1]; // url or query string?
