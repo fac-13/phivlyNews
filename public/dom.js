@@ -30,7 +30,6 @@
   // DOM manipulation on response:
 
   function populateList(countryObject){
-    var myFlags = flags();
     var countryList = Object.keys(countryObject).sort();
     countryList.forEach(country => {
       let button = document.createElement("button");
