@@ -38,6 +38,13 @@ body {
 	align-items: stretch;
 }
 
+a{
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #000;
+}
+
 /* tablet-portrait-up */
 @media (min-width: 900px) {
 	body {
